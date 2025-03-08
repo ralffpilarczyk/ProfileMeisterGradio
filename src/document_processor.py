@@ -37,11 +37,47 @@ def upload_documents():
     
     return uploaded
 
+# def load_document_content(uploaded):
+#     """
+#     Process uploaded documents and convert to format needed for API
+#     Returns a list of document dictionaries
+#     """
+#     documents = []
+    
+#     for fn in uploaded.keys():
+#         file_content = uploaded[fn]
+#         encoded_content = base64.standard_b64encode(file_content).decode("utf-8")
+
+#         # Add each document as a dictionary to the documents list
+#         documents.append({
+#             'mime_type': 'application/pdf',
+#             'data': encoded_content
+#         })
+    
+#     return documents
+
+def extract_text_from_html(html_content):
+    """Extract plain text from HTML content"""
+    import re
+    # Simple HTML tag removal - for more complex HTML, consider using BeautifulSoup
+    plain_text = re.sub(r'<[^>]+>', ' ', html_content)
+    # Normalize whitespace
+    plain_text = re.sub(r'\s+', ' ', plain_text).strip()
+    return plain_text
+
+# Global variable to store current documents
+_current_documents = []
+
+def get_current_documents():
+    """Return a copy of the current documents"""
+    return _current_documents.copy()
+
 def load_document_content(uploaded):
     """
     Process uploaded documents and convert to format needed for API
     Returns a list of document dictionaries
     """
+    global _current_documents
     documents = []
     
     for fn in uploaded.keys():
@@ -54,13 +90,7 @@ def load_document_content(uploaded):
             'data': encoded_content
         })
     
+    # Store documents in global variable for later access
+    _current_documents = documents
+    
     return documents
-
-def extract_text_from_html(html_content):
-    """Extract plain text from HTML content"""
-    import re
-    # Simple HTML tag removal - for more complex HTML, consider using BeautifulSoup
-    plain_text = re.sub(r'<[^>]+>', ' ', html_content)
-    # Normalize whitespace
-    plain_text = re.sub(r'\s+', ' ', plain_text).strip()
-    return plain_text
