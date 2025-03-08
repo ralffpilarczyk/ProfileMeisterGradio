@@ -1,4 +1,3 @@
-# src/section_definitions.py
 """
 Section definitions for ProfileMeister
 Contains descriptions of all profile sections
