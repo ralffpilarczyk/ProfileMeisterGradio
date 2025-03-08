@@ -18,6 +18,7 @@ AI-powered company profile generator that analyzes PDF documents using Google's 
 Run from the src directory:
 
 cd src
+
 python profile_meister.py
 
 Then select PDF files when prompted.
