@@ -1,0 +1,19 @@
+# Environment variables
+.env
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Generated output folders
+profile_*/
+
+# API cache
+api_cache.json
+
+# macOS files
+.DS_Store
