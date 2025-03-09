@@ -101,6 +101,71 @@ sections = [
     },
     {
         "number": 20,
+        "title": "Sellside Positioning - Macro",
+        "specs": "Describe 4-5 macro trends which support the Company's performance and prospects.\\nFocus on economic indicators, not industry dynamics, because that's a separate question later.\\nGood examples for macro indicators are economic growth, GDP / capita, consumer spending, demographics.\\nFocus on recent historical data or - even better - on projected data.\\nExplain how each indicator helps the Company and always underpin your observations about such indicators with facts, data and numbers."
+    },
+    {
+        "number": 21,
+        "title": "Sellside Positioning - Industry",
+        "specs": "Describe 4-5 industry trends which support the Company's performance and prospects.\\nFocus on industry indicators, not macro indicators.\\nGood examples of industry indicators include demand, supply, pricing, industry growth drivers.\\nFocus on recent historical data or - even better - on projected data.\\nExplain how each indicator helps the Company and always underpin your observations about such indicators with facts, data and numbers."
+    },
+    {
+        "number": 22,
+        "title": "Sellside Positioning - Competitive Positioning",
+        "specs": "Describe 4-5 facts and trends as to the Company's competitive positioning.\\nFocus on strengths vis-a-vis its competitors.\\nGood examples of such indicators include market share, scale, position towards customers (including brand awareness), position towards suppliers.\\nExplain how each such indicator helps the Company and always underpin your observations about such indicators with facts, data and numbers."
+    },
+    {
+        "number": 23,
+        "title": "Sellside Positioning - Operating Performance",
+        "specs": "Describe 4-5 facts and trends as to the Company's operating performance.\\nFocus on operating developments and operating KPIs, not financials.\\nGood examples of such indicators include volume growth, ability to charge premium unit prices, time to market, customer satisfaction.\\nHighlight prospects.\\nExplain how each such indicator helps the Company and always underpin your observations about such indicators with facts, data and numbers."
+    },
+    {
+        "number": 24,
+        "title": "Sellside Positioning - Financial Performance",
+        "specs": "Describe 4-5 facts and trends as to the Company's financial performance.\\nFocus on recent financial performance and financial KPIs, especially those which are relevant for the Company's prospects.\\nGood examples of such indicators include revenue, EBITDA, margins, cash flow, cash conversion, dividends.\\nHighlight prospects.\\nThis is the greatest hits of the company's financials."
+    },
+    {
+        "number": 25,
+        "title": "Sellside Positioning - Management",
+        "specs": "Describe 4-5 facts as to the Company's management and Board.\\nHighlight their achievements as individuals, to the extent these are relevant to the Company's prospects.\\nHighlight their achievements and contributions towards the Company's performance and positioning.\\nAlways underpin each observation with facts and numbers."
+    },
+    {
+        "number": 26,
+        "title": "Sellside Positioning - Potential Investor Concerns and Mitigants",
+        "specs": "Describe 6-7 areas of potential investor concerns when considering investing in the Company.\\nThese concerns need to be fundamental to the investor's ability to generate an attractive return on investment over the near to medium term.\\nThese need to be valid concerns, based on everything we know. The investor is sophisticated.\\nFor each concern write 2-3 bullet points as to what the problem is, underpinned by numbers, and how that impacts an investors ability to invest at an attractive valuation.\\nThen, for each such concern, write 1-2 bullet points how a sophisticated seller can assist and mitigate such concerns, ideally make them go away completely.\\nUnderpin each concern and mitigant by facts and numbers."
+    },
+    {
+        "number": 27,
+        "title": "Buyside Due Diligence - Macro",
+        "specs": "Analyze how 4-5 key macroeconomic trends could impact the Company's future performance.\\nFor each trend, assess both potential opportunities and risks to the business model.\\nEvaluate the Company's sensitivity to economic cycles, interest rates, inflation, and currency fluctuations.\\nAnalyze geographic exposure and political/regulatory risks in key operating regions.\\nAlways validate claims with specific data points and historical examples of how macro factors have affected the Company or industry."
+    },
+    {
+        "number": 28,
+        "title": "Buyside Due Diligence - Industry",
+        "specs": "Assess 4-5 critical industry trends that could materially impact the Company's growth trajectory.\\nEvaluate industry concentration, supplier power, customer power, and barriers to entry.\\nAnalyze disruption risks from technology changes, new business models, or substitute products/services.\\nExamine regulatory trends that could affect industry economics or competitive dynamics.\\nValidate all industry assumptions with data points, external research reports, and expert opinions."
+    },
+    {
+        "number": 29,
+        "title": "Buyside Due Diligence - Competitive Positioning",
+        "specs": "Evaluate the Company's sustainable competitive advantages (or lack thereof) versus key competitors.\\nAnalyze market share trends and whether the Company's position is improving or deteriorating.\\nAssess differentiation in product/service offerings, pricing power, and customer loyalty metrics.\\nScrutinize cost position and operational efficiency relative to peers.\\nFor each claim of competitive advantage, triangulate with customer references, lost deal analysis, and competitive benchmarking data."
+    },
+    {
+        "number": 30,
+        "title": "Buyside Due Diligence - Operating Performance",
+        "specs": "Conduct deep-dive analysis of 4-5 critical operating metrics beyond standard financials.\\nVerify customer concentration, retention rates, and acquisition costs for sustainability.\\nAssess capacity utilization, throughput metrics, and bottlenecks in operational workflow.\\nEvaluate supply chain resilience, vendor dependencies, and input cost volatility.\\nFor each operating metric, analyze historical performance, compare to industry benchmarks, and assess management's improvement initiatives."
+    },
+    {
+        "number": 31,
+        "title": "Buyside Due Diligence - Financial Performance",
+        "specs": "Analyze 5-7 key financial metrics beyond headline numbers to understand true business health.\\nConduct forensic accounting review to identify potential unusual accounting treatments or one-time adjustments.\\nExamine quality of revenue (recurring vs. non-recurring), revenue recognition policies, and sales pipeline.\\nEvaluate cash flow conversion, working capital management, and capital expenditure requirements.\\nChallenge all seller-provided adjustments to EBITDA and develop independent view of sustainable earnings."
+    },
+    {
+        "number": 32,
+        "title": "Buyside Due Diligence - Management",
+        "specs": "Evaluate key leadership team members' track records, both at the target company and in previous roles.\\nAssess depth of management team beyond C-suite and identify potential succession gaps.\\nVerify retention incentives, employment agreements, and post-acquisition retention risks.\\nConduct reference checks with former employers, board members, and industry peers.\\nEvaluate cultural compatibility with potential acquirer and integration readiness."
+    },
+    {
+        "number": 33,
         "title": "Appendix",
         "specs": "Create an appendix which captures all numerical data across all the source documents. Copy every single number, all categories, not just financials, but all numbers.\\nThis is meant to be a data back-up, included in here, not as a separate file\\nSort all the numbers into topics\\nLabel each number with a description and with the time or time period that it relates to\\nPresent the numbers in tables as much as possible"
     }
