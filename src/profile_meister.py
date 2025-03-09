@@ -57,7 +57,7 @@ def main():
     insight_model = create_insight_model()
     
     # Upload documents
-    print(f"{get_elapsed_time()} Project: Uploading documents...")
+    print(f"{get_elapsed_time()}: Uploading documents...")
     uploaded = upload_documents()
     
     if not uploaded:
@@ -65,7 +65,7 @@ def main():
         return
     
     # Process document content
-    print(f"{get_elapsed_time()} Project: Processing documents...")
+    print(f"{get_elapsed_time()}: Processing documents...")
     documents = load_document_content(uploaded)
     
     # Extract company name
@@ -76,17 +76,17 @@ def main():
             company_names.append(match.group(1))
     
     company_name = company_names[0] if company_names else "Unknown_Company"
-    print(f"{get_elapsed_time()} Project: Extracted company name: {company_name}")
+    print(f"{get_elapsed_time()}: Extracted company name: {company_name}")
     
     # Create profile folder
     profile_folder = create_profile_folder(company_name)
-    print(f"{get_elapsed_time()} Project: Created profile folder: {profile_folder}")
+    print(f"{get_elapsed_time()}: Created profile folder: {profile_folder}")
     
     # Load section definitions
     from section_definitions import sections
     
     # Process sections in parallel
-    print(f"\n{get_elapsed_time()} Project: PROCESSING SECTIONS IN PARALLEL")
+    print(f"\n{get_elapsed_time()}: PROCESSING SECTIONS IN PARALLEL")
     from prompts import persona, analysis_specs, output_format
     
     # Helper function to process a section
@@ -142,7 +142,7 @@ def main():
                 results[section["number"]] = error_content
     
     # Generate complete HTML profile
-    print(f"\n{get_elapsed_time()} Project: Generating complete HTML profile...")
+    print(f"\n{get_elapsed_time()}: Generating complete HTML profile...")
     from html_generator import generate_full_html_profile
     
     # Get section contents in correct order
@@ -168,9 +168,9 @@ def main():
     # Try to open the HTML file
     try:
         webbrowser.open(f"file://{os.path.abspath(final_profile_path)}")
-        print(f"{get_elapsed_time()} Project: Opened HTML file in browser")
+        print(f"{get_elapsed_time()}: Opened HTML file in browser")
     except:
-        print(f"{get_elapsed_time()} Project: Could not open HTML file automatically. Please open it manually")
+        print(f"{get_elapsed_time()}: Could not open HTML file automatically. Please open it manually")
     
     # Save metadata about the profile
     metadata = {
@@ -181,7 +181,7 @@ def main():
     metadata_path = f"{profile_folder}/metadata.json"
     with open(metadata_path, "w", encoding="utf-8") as f:
         json.dump(metadata, f, indent=2)
-    print(f"{get_elapsed_time()} Project: Profile metadata saved to {metadata_path}")
+    print(f"{get_elapsed_time()}: Profile metadata saved to {metadata_path}")
     
     # Fix any HTML issues
     fix_html_file(company_name)
@@ -191,8 +191,8 @@ def main():
     elapsed_time = end_time - start_time
     elapsed_minutes = elapsed_time / 60
     
-    print(f"\n{get_elapsed_time()} Project: EXECUTION COMPLETE")
-    print(f"{get_elapsed_time()} Project: Total execution time: {elapsed_time:.2f} seconds ({elapsed_minutes:.2f} minutes)")
+    print(f"\n{get_elapsed_time()}: EXECUTION COMPLETE")
+    print(f"{get_elapsed_time()}: Total execution time: {elapsed_time:.2f} seconds ({elapsed_minutes:.2f} minutes)")
 
 def fix_html_file(company_name=None):
     """Clean up HTML with a more direct approach to remove duplicate section titles"""
