@@ -46,7 +46,7 @@ sections = [
                 "Last 3 years and most recent year-to-date.\\n"
                 "Any forecasts or guidance.\\n"
                 "Presented in table format.\\n"
-                "Underneath the table, present an MDNA to elaborate on the key trends of the operational KPIs.\\n"
+                "Underneath the table, present an MDNA to elaborate on the key recent trends of the operational KPIs, especially in the most recent reporting period.\\n"
                 "As part of that MDNA highlight 1-2 key achievements, 1-2 key surprises, 1-2 challenges and 1-2 areas of disconnect when comparing what management is saying and how the company is actually doing."
     },
     {
@@ -56,7 +56,7 @@ sections = [
                 "Last 3 years and most recent year-to-date.\\n"
                 "Any forecasts or guidance.\\n"
                 "Presented in table format.\\n"
-                "Underneath the table, present an MDNA to elaborate on the key trends of the consolidated summary financials.\\n"
+                "Underneath the table, present an MDNA to elaborate on the key recent trends of the consolidated summary financials, especially in the most recent reporting period.\\n"
                 "As part of that MDNA highlight 1-2 key achievements, 1-2 key surprises, 1-2 challenges and 1-2 areas of disconnect when comparing what management is saying and how the company is actually doing."
     },
     {
@@ -67,7 +67,7 @@ sections = [
                 "Asset breakdown by geography and product, if available.\\n"
                 "Last 3 years and most recent year-to-date, and any forecasts or guidance.\\n"
                 "Presented in table format, ideally show segment data over time.\\n"
-                "Underneath the table, present an MD&A to elaborate on key trends for each segment.\\n"
+                "Underneath the table, present an MD&A to elaborate on key recent trends for each segment, especially in the most recent reporting period.\\n"
                 "As part of that MDNA highlight 1-2 key achievements, 1-2 key surprises, 1-2 challenges and 1-2 areas of disconnect when comparing what management is saying and how the company is actually doing."
     },
     {
