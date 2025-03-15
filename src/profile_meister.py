@@ -16,7 +16,7 @@ import concurrent.futures
 
 # Import ProfileMeister modules
 from document_processor import upload_documents, load_document_content
-from api_client import create_fact_model, create_insight_model, cached_generate_content
+from api_client import create_fact_model, create_insight_model, cached_generate_content 
 from html_generator import create_profile_folder, save_section, load_section, validate_html, repair_html
 
 # Load environment variables

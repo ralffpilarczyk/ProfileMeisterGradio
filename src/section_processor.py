@@ -160,6 +160,15 @@ def process_section_in_parallel(section, documents, persona, analysis_specs, out
         best_section_score = initial_section_rating
         best_section_content = section_content
         
+        # If no refinement iterations, also save the initial content as the refined version
+        if refinement_iterations <= 0:
+            # Apply HTML repair again to ensure valid structure
+            best_section_content = repair_html(best_section_content, section_num, section_title)
+            # Save as refined version
+            save_section(profile_folder, f"{section_num}_refined", best_section_content)
+            print(f"{get_elapsed_time()} Section {section_num}: No refinement requested, saved initial content as refined")
+            return section_num, best_section_content
+        
         # Only proceed with refinement if iterations > 0
         if refinement_iterations > 0:
             print(f"\n{get_elapsed_time()} Section {section_num}: BEGINNING REFINEMENT")
@@ -232,6 +241,43 @@ def process_section_in_parallel(section, documents, persona, analysis_specs, out
                 
             except Exception as e:
                 print(f"{get_elapsed_time()} Section {section_num}: Insight refinement failed: {str(e)}")
+                # Continue with best content so far
+
+            # Finally, do question-based refinement
+            try:
+                # Import question refinement function
+                from question_refinement import perform_question_refinement
+                
+                # Check for timeout
+                if time.time() - section_start_time > section_timeout:
+                    raise TimeoutError(f"Section {section_num} processing exceeded timeout")
+                    
+                print(f"{get_elapsed_time()} Section {section_num}: Performing question-based refinement")
+                
+                # Get the Q_NUMBER parameter from main module
+                from profile_meister import Q_NUMBER
+                
+                # Apply question-based refinement
+                question_improved_content = perform_question_refinement(
+                    section_instruction, best_section_content, q_number=Q_NUMBER
+                )
+                
+                # Apply HTML repair after question refinement
+                question_improved_content = repair_html(question_improved_content, section_num, section_title)
+                
+                # Rate the question-improved content
+                question_improved_rating = rate_answer(section_instruction, question_improved_content)
+                question_improved_rating_percent = question_improved_rating * 100
+                print(f"{get_elapsed_time()} Section {section_num}: QUESTION-IMPROVED RATING: {question_improved_rating_percent:.0f}%")
+                
+                # Update best content if improved
+                if question_improved_rating > best_section_score:
+                    best_section_score = question_improved_rating
+                    best_section_content = question_improved_content
+                    print(f"{get_elapsed_time()} Section {section_num}: Question improvements increased score")
+                    
+            except Exception as e:
+                print(f"{get_elapsed_time()} Section {section_num}: Question refinement failed: {str(e)}")
                 # Continue with best content so far
 
         # Ensure best content has proper HTML structure before saving

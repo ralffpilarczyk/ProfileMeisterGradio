@@ -5,6 +5,7 @@ Handles all HTML generation and processing
 
 import os
 import re
+import json
 from datetime import datetime
 
 def create_profile_folder(company_name):
@@ -328,3 +329,204 @@ def extract_text_from_html(html_content):
     # Normalize whitespace
     plain_text = re.sub(r'\s+', ' ', plain_text).strip()
     return plain_text
+
+def generate_html_from_schema(section_data, section_def):
+    """
+    Generate HTML for a section based on its schema and data
+    """
+    section_num = section_def["number"]
+    section_title = section_def["title"]
+    
+    # Start with section wrapper
+    html = f'<div class="section" id="section-{section_num}">\n'
+    html += f'<h2>{section_num}. {section_title}</h2>\n'
+    
+    # Generate HTML based on data structure
+    html += generate_content_from_data(section_data, skip_keys=["footnotes"])
+    
+    # Add footnotes if present
+    if "footnotes" in section_data and section_data["footnotes"]:
+        html += generate_footnotes_html(section_data["footnotes"])
+    
+    html += '</div>\n'
+    return html
+
+def generate_content_from_data(data, level=0, skip_keys=None):
+    """
+    Recursively generate HTML from structured data
+    """
+    if skip_keys is None:
+        skip_keys = []
+    
+    html = ""
+    
+    # Handle different data types
+    if isinstance(data, dict):
+        for key, value in data.items():
+            if key in skip_keys:
+                continue
+                
+            # Skip source references (they'll be handled with footnotes)
+            if key == "source_ref":
+                continue
+                
+            # Format key for display
+            display_key = key.replace("_", " ").title()
+            
+            if isinstance(value, dict):
+                # Recursive dictionary
+                if "value" in value and "unit" in value:
+                    # Special case for value-unit pairs
+                    unit = value.get("unit", "")
+                    as_of = f" (as of {value['as_of']})" if "as_of" in value else ""
+                    html += f"<p><strong>{display_key}:</strong> {value['value']}{unit}{as_of}</p>\n"
+                else:
+                    # Regular nested dictionary
+                    if level == 0:
+                        html += f"<h3>{display_key}</h3>\n"
+                    else:
+                        html += f"<h{level+3}>{display_key}</h{level+3}>\n"
+                    html += generate_content_from_data(value, level+1, skip_keys)
+            
+            elif isinstance(value, list):
+                # List of items
+                if value:  # Only process non-empty lists
+                    if key in ["metrics"]:
+                        # Special case for metrics
+                        html += "<p><strong>Metrics:</strong></p>\n<ul>\n"
+                        for item in value:
+                            metric_value = item.get("value", "")
+                            unit = item.get("unit", "")
+                            name = item.get("name", "")
+                            as_of = f" (as of {item['as_of']})" if "as_of" in item else ""
+                            html += f"<li>{name}: {metric_value}{unit}{as_of}</li>\n"
+                        html += "</ul>\n"
+                    elif all(isinstance(item, dict) and "name" in item for item in value):
+                        # List of named objects - create a table
+                        html += f"<h{level+3}>{display_key}</h{level+3}>\n"
+                        html += generate_table_from_objects(value)
+                    else:
+                        # Regular list - use heading + recursion
+                        html += f"<h{level+3}>{display_key}</h{level+3}>\n"
+                        for i, item in enumerate(value):
+                            item_html = generate_content_from_data(item, level+1, skip_keys)
+                            if item_html.strip():  # Only add if content was generated
+                                html += item_html
+            
+            else:
+                # Simple value
+                if value is not None and value != "":
+                    html += f"<p><strong>{display_key}:</strong> {value}</p>\n"
+    
+    elif isinstance(data, list):
+        # Top-level list - create appropriate representation
+        for item in data:
+            html += generate_content_from_data(item, level, skip_keys)
+    
+    return html
+
+def generate_table_from_objects(items):
+    """
+    Generate an HTML table from a list of similar objects
+    """
+    if not items:
+        return ""
+        
+    # Get all possible keys from all items
+    all_keys = set()
+    for item in items:
+        all_keys.update(item.keys())
+    
+    # Remove special keys
+    exclude_keys = {"source_ref", "metrics", "breakdowns", "products", "assets", "categories"}
+    display_keys = [k for k in all_keys if k not in exclude_keys]
+    
+    html = '<table class="data-table">\n<thead>\n<tr>\n'
+    for key in display_keys:
+        html += f'<th>{key.replace("_", " ").title()}</th>\n'
+    html += '</tr>\n</thead>\n<tbody>\n'
+    
+    for item in items:
+        html += '<tr>\n'
+        for key in display_keys:
+            value = item.get(key, "")
+            html += f'<td>{value}</td>\n'
+        html += '</tr>\n'
+        
+        # Add nested data if present
+        for special_key in ["metrics", "breakdowns", "products", "assets"]:
+            if special_key in item and item[special_key]:
+                html += f'<tr><td colspan="{len(display_keys)}">'
+                html += generate_content_from_data({special_key: item[special_key]}, level=1)
+                html += '</td></tr>\n'
+    
+    html += '</tbody>\n</table>\n'
+    return html
+
+def generate_footnotes_html(footnotes):
+    """Generate HTML for footnotes section"""
+    html = '<div class="footnotes">\n'
+    html += '<h3>Sources & References</h3>\n'
+    html += '<ol>\n'
+    
+    for footnote in footnotes:
+        html += f'<li id="{footnote.get("id", "")}">'
+        html += f'<strong>{footnote.get("document", "")}</strong>'
+        if footnote.get("page"):
+            html += f', page {footnote.get("page", "")}'
+        if footnote.get("section"):
+            html += f', {footnote.get("section", "")}'
+        html += '</li>\n'
+    
+    html += '</ol>\n</div>\n'
+    return html
+
+def parse_ai_response_to_schema(ai_text, section_def):
+    """
+    Parse AI generated text into structured data according to section schema
+    
+    This would likely use a follow-up AI call to structure the data
+    """
+    schema = section_def.get("schema", {})
+    schema_type = section_def.get("schema_type", section_def["title"].lower().replace(" ", "_"))
+    
+    # Create a prompt for the AI to parse its own output into structured format
+    parsing_prompt = f"""
+    I've generated content for section {section_def['number']}: {section_def['title']}.
+    
+    Original content:
+    {ai_text}
+    
+    Please extract the information from this content and format it according to this JSON schema:
+    {json.dumps(schema, indent=2)}
+    
+    For reference, here's an example of the expected format:
+    {json.dumps(section_def.get('template', {}), indent=2)}
+    
+    Only include information explicitly stated in the original content.
+    Return ONLY the JSON with no additional text.
+    """
+    
+    # Use AI to parse the structured data (could use fact_model for precision)
+    from api_client import create_fact_model
+    fact_model = create_fact_model()
+    
+    # Get structured data
+    parsing_response = cached_generate_content(fact_model, parsing_prompt)
+    
+    try:
+        # Extract JSON from response (may need regex if AI adds explanatory text)
+        import re
+        json_match = re.search(r'```json\s*(.*?)\s*```', parsing_response.text, re.DOTALL)
+        if json_match:
+            structured_data = json.loads(json_match.group(1))
+        else:
+            structured_data = json.loads(parsing_response.text)
+        
+        return structured_data
+    except json.JSONDecodeError:
+        # Fall back to empty structure if parsing fails
+        print(f"Failed to parse JSON for section {section_def['number']}")
+        return schema
+    
+
