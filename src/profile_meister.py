@@ -79,7 +79,7 @@ def main():
     print(f"{get_elapsed_time()}: Extracted company name: {company_name}")
     
     # Create profile folder
-    profile_folder = create_profile_folder(company_name)
+    profile_folder, timestamp = create_profile_folder(company_name)
     print(f"{get_elapsed_time()}: Created profile folder: {profile_folder}")
     
     # Load section definitions
@@ -160,7 +160,7 @@ def main():
     full_profile = generate_full_html_profile(company_name, sections, ordered_section_contents)
     
     # Save the final compiled profile as HTML
-    final_profile_path = f"{profile_folder}/company_profile_{company_name}.html"
+    final_profile_path = f"{profile_folder}/{company_name}_Company_Profile_{timestamp}.html"
     with open(final_profile_path, "w", encoding="utf-8") as f:
         f.write(full_profile)
     print(f"{get_elapsed_time()} Project: Complete HTML profile saved to {final_profile_path}")

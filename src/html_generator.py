@@ -23,7 +23,7 @@ def create_profile_folder(company_name):
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
     
-    return folder_name
+    return folder_name, timestamp # Return folder name and timestamp
 
 def save_section(profile_folder, section_number, content):
     """Save a section's HTML content to a file in the specified profile folder"""
