@@ -34,7 +34,7 @@ genai.configure(api_key=GOOGLE_API_KEY)
 
 # Configuration variables
 MAX_WORKERS = 2
-REFINEMENT_ITERATIONS = 1
+REFINEMENT_ITERATIONS = 0
 Q_NUMBER = 5
 
 # Start timing
