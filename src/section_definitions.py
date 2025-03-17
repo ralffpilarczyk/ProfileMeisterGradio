@@ -2034,6 +2034,204 @@ sections = [
     },
 
     {
+        "number": 8,
+        "title": "Summary Financials (Segment)",
+        "specs": (
+            "Provide a summary of financial performance for each segment reported by the Company. "
+            "Include all available financial metrics for each segment, covering the last 3 financial years and the 5 most recent quarters where available.\n"
+            "Present the data in table format where possible. Clearly identify each segment using the Company's naming convention.\n"
+            "For each segment:\n"
+            "  - Include all reported financial metrics (e.g., Revenue, Operating Income, EBITDA, Assets, etc.).\n"
+            "  - Show one-time items separately.\n"
+            "  - Include a short MDNA (Management Discussion and Analysis) highlighting:\n"
+            "    - 2 key recent trends\n"
+            "    - 2 key achievements\n"
+            "    - 2 key challenges\n"
+            "    - 2 areas of disconnect between management statements and actual performance\n"
+            "All data points must reference the specific point in time or time period they relate to.\n"
+            "Include precise footnotes with exact sources, document references, page numbers, and sections for each data point."
+        ),
+        "schema": {
+            "segments": [
+                {
+                    "segment_name": None,
+                    "annual_financials": {
+                        "columns": [],  # List of {"period": str, "end_date": str, "source_ref": str}
+                        "metrics": []   # List of {"name": str, "description": str, "values": [ {"period":str, "value":float, "unit":str, "yoy_change": float, "source_ref":str}, ... ]}
+                    },
+                    "quarterly_financials": {
+                        "columns": [], # List of {"period": str, "end_date": str, "source_ref": str}
+                        "metrics": []   # List of {"name": str, "description": str, "values": [ {"period":str, "value":float, "unit":str, "yoy_change": float, "source_ref":str}, ... ]}
+                    },
+                    "one_time_items": [], # List of {"period": str, "description": str, "impact": {"value": float, "unit": str, "affected_metric": str}, "source_ref": str}
+                    "mdna": {
+                        "trend_analysis": None,
+                        "key_achievements": [],  # List of {"description": str, "source_ref": str}
+                        "key_challenges": [],    # List of {"description": str, "source_ref": str}
+                        "management_disconnects": [] # List of {"management_statement": str, "actual_performance": str, "source_ref": str}
+                    }
+                }
+            ],
+            "footnotes": []
+        },
+        "template": {
+            "segments": [
+                {
+                    "segment_name": "Industrial Automation",
+                    "annual_financials": {
+                        "columns": [
+                            {"period": "FY 2021", "end_date": "December 31, 2021", "source_ref": "ref1"},
+                            {"period": "FY 2022", "end_date": "December 31, 2022", "source_ref": "ref1"},
+                            {"period": "FY 2023", "end_date": "December 31, 2023", "source_ref": "ref1"}
+                        ],
+                        "metrics": [
+                            {
+                                "name": "Revenue",
+                                "description": "Total segment revenue",
+                                "values": [
+                                    {"period": "FY 2021", "value": 2000.0, "unit": "million USD", "yoy_change": None, "source_ref": "ref1"},
+                                    {"period": "FY 2022", "value": 2200.0, "unit": "million USD", "yoy_change": 10.0, "source_ref": "ref1"},
+                                    {"period": "FY 2023", "value": 2500.0, "unit": "million USD", "yoy_change": 13.6, "source_ref": "ref1"}
+                                ]
+                            },
+                            {
+                                "name": "Operating Income",
+                                "description": "Segment operating income",
+                                "values": [
+                                    {"period": "FY 2021", "value": 300.0, "unit": "million USD", "yoy_change": None, "source_ref": "ref1"},
+                                    {"period": "FY 2022", "value": 350.0, "unit": "million USD", "yoy_change": 16.7, "source_ref": "ref1"},
+                                    {"period": "FY 2023", "value": 420.0, "unit": "million USD", "yoy_change": 20.0, "source_ref": "ref1"}
+                                ]
+                            }
+                        ]
+                    },
+                    "quarterly_financials": {
+                        "columns": [
+                            {"period": "Q1 2023", "end_date": "March 31, 2023", "source_ref": "ref1"},
+                            {"period": "Q2 2023", "end_date": "June 30, 2023", "source_ref": "ref1"},
+                            {"period": "Q3 2023", "end_date": "September 30, 2023", "source_ref": "ref1"},
+                            {"period": "Q4 2023", "end_date": "December 31, 2023", "source_ref": "ref1"},
+                            {"period": "Q1 2024", "end_date": "March 31, 2024", "source_ref": "ref2"}
+                        ],
+                        "metrics": [
+                            {
+                                "name": "Revenue",
+                                "description": "Total segment revenue",
+                                "values": [
+                                    {"period": "Q1 2023", "value": 600, "unit": "million USD", "yoy_change": 12, "source_ref": "ref1"},
+                                    {"period": "Q2 2023", "value": 620, "unit": "million USD", "yoy_change": 13, "source_ref": "ref1"},
+                                    {"period": "Q3 2023", "value": 630, "unit": "million USD", "yoy_change": 14, "source_ref": "ref1"},
+                                    {"period": "Q4 2023", "value": 650, "unit": "million USD", "yoy_change": 15, "source_ref": "ref1"},
+                                    {"period": "Q1 2024", "value": 670, "unit": "million USD", "yoy_change": 11.7, "source_ref": "ref2"}
+                                ]
+                            }
+                        ]
+                    },
+                    "one_time_items": [
+                        {
+                            "period": "FY 2023",
+                            "description": "Restructuring charges related to facility consolidation",
+                            "impact": {"value": -15.0, "unit": "million USD", "affected_metric": "Operating Income", "source_ref": "ref3"}
+                        }
+                    ],
+                    "mdna": {
+                        "trend_analysis": "Revenue growth has been strong, driven by new product introductions and increased demand for automation solutions.",
+                        "key_achievements": [
+                            {"description": "Successfully launched the new X1000 control system.", "source_ref": "ref4"},
+                            {"description": "Achieved record market share in the North American region.", "source_ref": "ref4"}
+                        ],
+                        "key_challenges": [
+                            {"description": "Facing increased pricing pressure from competitors.", "source_ref": "ref5"},
+                            {"description": "Supply chain disruptions continue to impact component availability.", "source_ref": "ref5"}
+                        ],
+                        "management_disconnects": [
+                            {"management_statement": "Management stated that supply chain issues were fully resolved.", "actual_performance": "However, lead times remain extended for certain components.", "source_ref": "ref6"}
+                        ]
+                    }
+                },
+                {
+                    "segment_name": "Process Control Systems",
+                    "annual_financials": {
+                        "columns": [
+                            {"period": "FY 2021", "end_date": "December 31, 2021", "source_ref": "ref1"},
+                            {"period": "FY 2022", "end_date": "December 31, 2022", "source_ref": "ref1"},
+                            {"period": "FY 2023", "end_date": "December 31, 2023", "source_ref": "ref1"}
+                        ],
+                        "metrics": [
+                            {
+                                "name": "Revenue",
+                                "description": "Total revenue",
+                                "values": [
+                                    {"period": "FY 2021", "value": 1500.0, "unit": "million USD", "yoy_change": None, "source_ref": "ref1"},
+                                    {"period": "FY 2022", "value": 1650.0, "unit": "million USD", "yoy_change": 10.0, "source_ref": "ref1"},
+                                    {"period": "FY 2023", "value": 1800.0, "unit": "million USD", "yoy_change": 9.1, "source_ref": "ref1"}
+                                ]
+                            },
+                            {
+                                "name": "EBITDA",
+                                "description": "Earnings Before Interest, Taxes, Depreciation, and Amortization",
+                                "values": [
+                                    {"period": "FY 2021", "value": 250.0, "unit": "million USD", "yoy_change": None, "source_ref": "ref1"},
+                                    {"period": "FY 2022", "value": 280.0, "unit": "million USD", "yoy_change": 12.0, "source_ref": "ref1"},
+                                    {"period": "FY 2023", "value": 320.0, "unit": "million USD", "yoy_change": 14.3, "source_ref": "ref1"}
+                                ]
+                            }
+                        ]
+                    },
+                    "quarterly_financials": {
+                        "columns": [
+                            {"period": "Q1 2023", "end_date": "March 31, 2023", "source_ref": "ref1"},
+                            {"period": "Q2 2023", "end_date": "June 30, 2023", "source_ref": "ref1"},
+                            {"period": "Q3 2023", "end_date": "September 30, 2023", "source_ref": "ref1"},
+                            {"period": "Q4 2023", "end_date": "December 31, 2023", "source_ref": "ref1"},
+                            {"period": "Q1 2024", "end_date": "March 31, 2024", "source_ref": "ref2"}
+                        ],
+                        "metrics": [
+                            {
+                                "name": "EBITDA",
+                                "description": "Earnings Before Interest, Taxes, Depreciation, and Amortization",
+                                "values": [
+                                    {"period": "Q1 2023", "value": 75.0, "unit": "million USD", "yoy_change": 15.0, "source_ref": "ref1"},
+                                    {"period": "Q2 2023", "value": 78.0, "unit": "million USD", "yoy_change": 12.0, "source_ref": "ref1"},
+                                    {"period": "Q3 2023", "value": 80.0, "unit": "million USD", "yoy_change": 10.0, "source_ref": "ref1"},
+                                    {"period": "Q4 2023", "value": 87.0, "unit": "million USD", "yoy_change": 8.0, "source_ref": "ref1"},
+                                    {"period": "Q1 2024", "value": 90, "unit": "million USD", "yoy_change": 20.0, "source_ref": "ref2"}
+                                ]
+                            }
+                        ]
+                    },
+                    "one_time_items": [],
+                    "mdna": {
+                        "trend_analysis": "EBITDA growth has outpaced revenue growth, driven by improved product mix and cost efficiencies.",
+                        "key_achievements": [
+                            {"description": "Successfully integrated a new software platform into the product offering.", "source_ref": "ref7"},
+                            {"description": "Expanded market share in the European region.", "source_ref": "ref7"}
+                        ],
+                        "key_challenges": [
+                            {"description": "Maintaining profitability in the face of rising raw material costs.", "source_ref": "ref8"},
+                            {"description": "Integrating acquired technologies and teams.", "source_ref": "ref8"}
+                        ],
+                        "management_disconnects": [
+                            {"management_statement": "Management projected 15% EBITDA growth for FY2023.", "actual_performance": "Actual EBITDA growth was 14.3%.", "source_ref": "ref9"}
+                        ]
+                    }
+                }
+            ],
+            "footnotes": [
+                {"id": "ref1", "document": "Source Document 1", "page": 10, "section": "Financial Statements"},
+                {"id": "ref2", "document": "Source Document 2", "page": 15, "section": "Segment Reporting"},
+                {"id": "ref3", "document": "Source Document 1", "page": 20, "section": "Notes to Financial Statements"},
+                {"id": "ref4", "document": "Source Document 3", "page": 5, "section": "Management Discussion"},
+                {"id": "ref5", "document": "Source Document 3", "page": 8, "section": "Risk Factors"},
+                {"id": "ref6", "document": "Source Document 4", "page": 12, "section": "Investor Presentation"},
+                {"id": "ref7", "document": "Source Document 3", "page": 7, "section": "Business Segment Review"},
+                {"id": "ref8", "document": "Source Document 4", "page": 10, "section": "Management Commentary"},
+                {"id": "ref9", "document": "Source Document 5", "page": 22, "section": "Financial Results"}
+            ]
+        }
+    },
+    
+    {
         "number": 9,
         "title": "Balance Sheet (Most Recent)",
         "specs": "Summarized balance sheet with 5-6 lines on assets side and 5-6 lines on liabilities side\\n"
