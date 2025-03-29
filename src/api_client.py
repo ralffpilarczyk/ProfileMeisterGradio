@@ -38,7 +38,7 @@ def cached_generate_content(model, prompt, section_num=None, cache_enabled=True,
     """Generate content with caching and exponential backoff for rate limits"""
     # Use the imported get_elapsed_time from main module (relies on global start time)
     try:
-        from profile_meister import get_elapsed_time
+        from .utils import get_elapsed_time
     except ImportError:
         # Fallback timer if import fails (less accurate if script runs long before this)
         _start = time.time()

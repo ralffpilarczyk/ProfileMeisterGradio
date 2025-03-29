@@ -7,7 +7,7 @@ import os
 import base64
 import tkinter as tk
 from tkinter import filedialog
-from html_generator import extract_text_from_html
+from .html_generator import extract_text_from_html
 
 def upload_documents():
     """

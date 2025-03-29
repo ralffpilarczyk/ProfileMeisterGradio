@@ -3,9 +3,9 @@ Insight Refinement module for ProfileMeister
 Handles insight critique and improvements
 """
 import traceback # Import traceback
-from api_client import cached_generate_content, create_insight_model
+from .api_client import cached_generate_content, create_insight_model
 # Import from html_generator now
-from html_generator import repair_html, clean_llm_output, validate_html
+from .html_generator import repair_html, clean_llm_output, validate_html
 
 
 def get_insight_critique(initial_instruction, answer):
@@ -27,9 +27,9 @@ def get_insight_critique(initial_instruction, answer):
         # ... (rest of instructions) ...
     )
 
-    from prompts import persona
+    from .prompts import persona
     prompt = f"{persona} {instruction}"
-    from document_processor import get_current_documents
+    from .document_processor import get_current_documents
     insight_critique_docs = get_current_documents()
     insight_critique_docs.append(prompt)
     insight_model = create_insight_model()

@@ -1,3 +1,4 @@
+gradio
 annotated-types==0.7.0
 asttokens==3.0.0
 cachetools==5.5.2
